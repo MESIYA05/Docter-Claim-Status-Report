@@ -91,8 +91,16 @@ function getFilteredLines(c, statusVal) {
   return lines;
 }
 
-/* Medi Elves logo used in the PDF header (valid PNG, embedded as base64) */
-const MEDI_ELVES_LOGO_BASE64 = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAIBAQEBAQIBAQECAgICAgQDAgICAgUEBAMEBgUGBgYFBgYGBwkIBgcJBwYGCAsICQoKCgoKBggLDAsKDAkKCgr/2wBDAQICAgICAgUDAwUKBwYHCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgr/wAARCABaANQDAREAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9y/7B+IP/AEB9G/8ABxL/API1dHPS7v7v+CLUP7B+IP8A0B9G/wDBxL/8jUc9Lu/u/wCCGof2D8Qf+gPo3/g4l/8Akajnpd393/BDUP7B+IP/AEB9G/8ABxL/API1HPS7v7v+CGof2D8Qf+gPo3/g4l/+RqOel3f3f8ENQ/sH4g/9AfRv/BxL/wDI1HPS7v7v+CGof2D8Qf8AoD6N/wCDiX/5Go56Xd/d/wAENQ/sH4g/9AfRv/BxL/8AI1HPS7v7v+CGof2D8Qf+gPo3/g4l/wDkajnpd393/BDUP7B+IP8A0B9G/wDBxL/8jUc9Lu/u/wCCGof2D8Qf+gPo3/g4l/8Akajnpd393/BDUP7B+IP/AEB9G/8ABxL/API1HPS7v7v+CGof2D8Qf+gPo3/g4l/+RqOel3f3f8ENQ/sH4g/9AfRv/BxL/wDI1HPS7v7v+CGof2D8Qf8AoD6N/wCDiX/5Go56Xd/d/wAENQ/sH4g/9AfRv/BxL/8AI1HPS7v7v+CGof2D8Qf+gPo3/g4l/wDkajnpd393/BDUP7B+IP8A0B9G/wDBxL/8jUc9Lu/u/wCCGof2D8Qf+gPo3/g4l/8Akajnpd393/BDUP7B+IP/AEB9G/8ABxL/API1HPS7v7v+CGof2D8Qf+gPo3/g4l/+RqOel3f3f8ENQ/sH4g/9AfRv/BxL/wDI1HPS7v7v+CGof2D8Qf8AoD6N/wCDiX/5Go56Xd/d/wAENQ/sH4g/9AfRv/BxL/8AI1HPS7v7v+CGof2D8Qf+gPo3/g4l/wDkajnpd393/BDUP7B+IP8A0B9G/wDBxL/8jUc9Lu/u/wCCGp/BpXOM/v8AKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgD+AOgD+/ygAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoA/gDoA/v8oAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAP4A6AP7/KACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgD+AOgD+/wAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAP4A6AP7/KACgAoAKACgAoA53x98SvDvw6vvDlt4kvEt08SeIo9GtJpWwouZIJpIlz6u0QjA7s6jvWdSpGm436uxjWr06Dgpv4nb5tO332sfMXxt/4Lu/8Ew/2bfinc/Bb4+fHvUfB/iW1uPKk03xD4G1i1LDeUEqtJahXiJBxKpKEDIYitDY+t9J1XTtd0q21zR7tLi0vLdJ7WeM5WSN1DKw9iCDQB8vftPf8FrP+Caf7HXxvm/Zx/aC/aQg0bxpbxW8k2hW+g395KvnjdEubeB13sCCEzu+YccigD6V8FeLtJ8feEtO8a6DDfR2WqWiXNqmpabNZ3ARhkeZBOiSRNj+F1DDuKANSgDB+KHxQ+HnwV+H+rfFb4s+MbDw/4b0K0a61jWtUnEVvaQjGXdj0HI/OgDw/9lj/AIK0/wDBP/8AbX8e+J/h3+y9+0DZ+Lr3wdon9reILiy066jtra1D7C4lmjRXwf7ueOaAMH9hf/gs/wDsE/8ABRX4x+KPgT+zD8R9Q1LxD4UtXu7uDUNIkto7u2SVYnnt3biRA7IOdpw4OMZwAd1+2j/wUe/ZA/4J76fo+s/tb/Ey68K2OuvImm6gfDl/d2zumMxtLbQyJG/OQrEMwBIBAOADynw3/wAF8P8AgmB4y0FfFPhH40+ItV0twxTUtO+GOvz27bfvYkSyKnHfnigDc8J/8Fu/+CW/jD4Gav8AtJWP7XGiWngvQvEaaDqWsatYXlps1J4GnS2WKWFZZHMSuwCKeEb0NAHr37I/7Yf7Pv7c3wei+Pf7Mfjj/hIvCk+pXNjb6r9hmtxLNA+yTCTKr4B6EgZoA9OoAKACgAoAKACgAoA/gDoA/v8AKACgAoAKACgAoA+Yv+CwHw+8S+OP2EfE+seC7i4h1fwhfWHiWxntGIlh+xXKSSyoRyGSHzXBHdBXm5vTlPAycd42f3P/ACPA4moTrZPNw3g1JW/utN/hc/Cn/gtNq/xD/wCCnlz4N8RePLjTNH8bfDf4fX1rBIA4TxgzzxT20luQhRTJGJxtdlAkZME5ZV5MHnNOTVPEe7Lv0f8AkeblfFWHm1Qxr5J9JfZl2d+l/PQ/TT/g3U/4Ka2PxL/4Jc6t4d/aa1C50jxV+zfp81h4zOqoyXD6NBC81peMr4JxDHJAc8l7Uk/fFe4mpK6PsIyjON4u6PxU+MKfFHxp/wAFbf2df21Pjak0OtfH74keH/H66ZO27+z9NuPECx2FsCeqLZw25U/3GWmM/ez9q3/gtte+F/2/tG/4Jc/sM/AaD4ofF29BfXrnVtdOnaL4fRYjM/2iZI5JHKRDe+1flyqje7bQAS/sif8ABbzSvHX7WXxO/YL/AG3vhRYfCr4m/C3SrjVtTu7DXjf6LqWnwQLcS3EMzRxyIBA6zAOnzRkn5WG2gDzL9lj/AILv/tQ/8FN/it470T/gnX+wPpniX4d+Bsx6l4k8feNxpMuqht2yKFFhlSOWVVYqj7lAwXZc4AB8B/8ABqBrmo+G/wBs/wDar8QaP8HL7VLqz+H13NB4CsJbdbi4ZdTyNPRpXSEOf9UCzKme4FAH1b/wb0fthfsH/HP/AIKE/F74Zfsm/wDBNS2+Cus2nhK61DxDrl54ie+vp2i1K2gezEZXZbR+ZMXKISN0ajJAGAD3n/g6vggm/wCCM3jppoUcx6/o7Rllztb7UoyPQ4JGfegDxn/ggr/wUj/Ys/Y5/wCCH3h7Vvjb+0Z4N0rVvDMOs31x4XuvEltHqVwVnkdIY7ct5jSScKqhSSWGAaAH/wDBRj4J/AvVf+CLX7Rv7fXwh8JT+Hrf9ovwX4c8Uav4MmEUltpuoQs2bmMqi/vZRMhkOMFoQwxk0AfLP/BMz/grj8aP+CRn/BD/AOG/xb0v9liw8eeCNd+IWv6fd6svid7S40+/+0Fljki+zuvlsija+/JbcpUYBIB+l3j7/gr/APFjwr/wSH8Nf8FTdA+BPg/VhrgsZ5fB0HjecP5N5dpZwQQS/ZP3t2J5FV4SFVdsmHbaMgHnvhr/AILx/tB/G79q3SP+Cd/7NX7HPh/WvjXBpMt/8RP7T8dPH4e8J+WFaSCS6jtmlnePzI0kKR4WVgieZ96gDe+B/wDwcM/DCO9+Pfwt/bT+Dtz8OfiJ+zvp9zfeLNG0jU11K01i3hkWPdYSlYyWaSSIKrgArKj7gNwUAwfgx/wW1/bn+N/7Hl3/AMFJPAf/AAT78L6z8HbK9uPtmg6P8Snl8VwWME3lz3Zt/snkMsYDOybxIVUsF2/NQB+lvh3WYfEfh+x8Q28EkUd/ZxXCRTDDoHQMA3uM80AXKACgD+AOgD+/ygAoAKACgAoAKAK+r6Tp2vaTdaHrFmlxaXtu8F1byrlZI3UqykdwQSKTSkrMmUYzi4vZn8/H/BS74M6V+xP+1VD+ytoeseH/AIjaB4hhOpeFfBY1MR67o8M0rr5MDAh1cMpCqCVYbS0b7ttfJ4nK69CTUVz0+i7fqvXbufmuP4exuCqShTgqlF6pP7Pldar1V13R4j4b8YJpPjK//ZP1zxf4r8GaH8ZLW38K+JJtf8ONaaxptm11CzQN5iqJkBUASRlQw3fu48hWeDniMBUVr8jesX080+w8rr4zJsRG3N7KTSlCWrjfqn1S+Xmj0n/g450n4c/B3/gtH+yppOgy6fpWheFbHwtbC1ilVY9NsrXVoxGrDP7tFiUYzj5Vr6w/Szgn8Fwfs3f8HM/jnSv2pP2kvHXwc0X4harqcuhfE3wZrEFjLLb3qLLaH7VPDMn2aQoIWYKMNt+ZQDQB92ftF/8ABLH/AIJ5SH4p+Jf2cf2jvGHxc/aZ8c/CjW00vVNR8djW7qeFbERubj7KixRh4kWBDIACWVV5IoA8e/4M6f2lfgp8JPgn8bfgH8WfHGk+FPE2n+JIdVntfEF7HZu9skDxSk+aV5idCGHVd1AHnv8AwaK+NPC93/wVF/aPnt/EFoYtX8M3l1prmdR9piGsq+9M/eG1w3HQHNAEf/BqZqNgP+C2P7SAN7D/AKV4V1/7N+8H77/iorNvl/vfKCeOwzQB+hX/AAdb6vpWn/8ABG7xpY3+pwQzXniDSI7SKWUK0zi6ViqA8sQATx2FAHiv/BAz9kz/AIJ7/tC/8EWvDnhr9oz4ffDy41XxDHrFlqmqalFZR6mkbzyIrrLIN6OoIKt2wKAM7/go/wDtffsy6p/wSv8A2iP+Cbv7KmpX3inwx+z98KtC03VPiLdarBLBNfzXflQ6epiRVnmEdvI7yIFXKlQvegDnf+CMn7Gfhv8A4KJ/8GwXib9lR5rR9X1HxD4hfQJpHB+w6vFMs1ozd0BfYGPXZIx70AfPn/BvFq/xp/bO8R+AP+CXvxe8L39v4K/Z1+J+ofEPxjHeqQGuLYeVp2lyKfulNSeWZo2BDLE44IoA84/Yw+Hsf7NH/BwZ8Xfgp+15+1P8QvgVL4tu9et9N8a+Edct9LlvWudRhvLWKa5uoJU+yzRoeVC5kSL5gAQQD9CfjJ+xp/wQr/ZF0/4yfGz4o/GDx18X/EfiXwBP/wALN1SLxkut366Xc3FvbtdStAEgikEhiZC5DHyvlDYwQD4t/aO/4J0ft5/8EJvg/cf8FDf+CY3/AAUXtfFvwQa7tLs24vUVpYLqaOKATWpL2t+pMkas8e1iMkxqFOAD98v2AP2gfGX7Vf7Fnwz/AGi/iH4PGga54w8JWuo6ppKoyrDM6/MVVuQjY3qDnCsOT1oA9goAKAP4A6AP7/KACgAoAKACgAoAKAPm7xb/AMEf/wDgmJ478e3XxS8Y/sR+AtS8RXt817dazd6QGuJLhnLmQvnO7cSc+tAHqnxi/Zg+APx98Gp4D+Lnwp0bWtPgMTWQu7NTLaSRkGOSGUfPE6EAhlIIxUTpwqRtJXMq1CjXhy1I3R5j8V/+CRv/AATP+OnxA1L4rfGH9irwF4j8R6xctcanrOraOJZ7mU8lmYnqas1N74p/8E3f2Dfjd8K9E+Cfxa/ZP8E+IPDHhm2Fv4d0zUtFST+y4v7tvJ/rIR67GGaAOh/Zq/Yz/ZU/Y68PT+F/2X/gD4Y8EWd2wa9Gg6WkUt0R0M0vMkpA4BdjgcCgDiPiZ/wSh/4Jt/GT4tn46/E79iv4fax4sknE11rF1oEYe8kBzuuEXCXB4HMqtnFAHM+If+CZv/BJ/wDZ3u779oC5/Y08AaFePcGC91vT9CEcpa/lFs4OwjCu1xtbsAxPaonONOPNLYyrVqdCnzzdlp+LsUf2f/2Ff+CQHwl8Q6T+0f8ABH9mb4ceDdRttce08N+LFsEsHurpSU3W0kjDzgx3BSM78EjIwamNalKPNfTb1IhiqE4c/NZN2Tel/Tuek/tPfsrfsC/tg6/a+GP2rvhh4D8b6n4ZsJLq20zxLJFNNp9s+GeYxFwUjO0HeRjjrV88Oa19TT2tJTceZXWtr62PN/Bv/BIb/gjZ4psZj8Pv2OfhRqNtaTtDcf2NbRzRwyjko3luQrc8g880RnGfwu44VKdRNwkn6O5U0L9g7/gjY/hW2/Zqg/Za+Gunaf4y12bVLfwbdaSkX9q3tgJLY3Bjz87Is0irk8iRsDOcQq1NyUb6vb5GSxeHc4w5rN3su9tz1n4A/so/sK/sJ6g/hz9nv4VeCPhtdeLZVj/s/SjHZvqsidFSNmzKwz0UE1bnGLSb3NZVKcJKMpJN7a7+gnwq8EfsP/Abxj4v+L/w+8IeDPAmveOPEdwni3WZFg0+41y/huGjd5GZh5pMrnB7l89Wqfa00rt29SPrFFK8pJa2108jE/an/Zj/AOCZf7ZHh6x8WftY/Dn4WeM7K2kkt9M8Qa9NaF4WU4eKK8Dq64P3kV+o5HFHtaSjfmVvUHiMOoc/Ord7qxL8I/gB/wAE6/2ffBXjH9nb4X/BP4f+FvC1npVneeNdObR7eLT7y2vBKIXupZRtuQwgcZkZsBVGelHtafM03ta/zF9ZoKcouVuVJvtZ3tr8jB8Mf8Eh/wDglRNc2Pjbwt+xl8O7u0aRL3TIYbET6XnhklitSzWoHQqVjwOCKtNNXRtGUZRTi7pn0zaWlrYWsdjY20cMEMYSGGJAqooGAoA4AA7UxklABQB/AHQB/f5QAUAFABQAUAFABQAUAFABQAUAFABQBwv7SPwO0X9o/wCD2pfBzxHciKw1W6snvN0e4SRwXcNw0ZAI4cRbOvG7NY16Ma9Jwezt+dzlxmFhjcO6Mtnb8Gn+h478Rf8AgnZ/wnXhfw94LPxTuf7L8KNqtloVpcpLiLSb4W/+iuYpUaRofI2xuT9xipB61zTwPPFR5tFe3o+nyOCrlHtKcYc+keZL/C7aaNbW08hvjL9gCePxZ49+I/hnxZJqF14i0jVn03TLuSUNHe3WlpZBA5l8sR4jTBKZAwM4UUpYL3pyT3v97VhVMq/eVKkXdyTsvNxt3tbQ7j9kb9mrWvgTpMmseK9VsH1XUPD+k6fcWWk6cltb2yWdt5aghGIeTJbLjg4GOK2w2HdFXb1sl9x05fgpYWN5PVqK0VlorEXhT9kMeD/Gfgjxlp3iy3mm8Jajr00q3Omhjcw6nMsrIrZyjRsgw3PVuOaI4bllGV9r/iKnl/s6lOafwuXT+Z3/AALfx7/ZbuvjL8VfCfxM07xjHpMvhyeAzgWXmvcRR3cVz5eGbyyC0QGWQlDhlKsAadbD+1qRmna3+dysVgniK8Kilbl/HVP06dvQ5fxl+wDoPjXS/EOm6v4ril/tvR/F9lC1xpiSfZX1y5jm81dx+9Ds2jGC2eorKeCjNNN7qX/k3+Rz1cphVjJOW6mttud3/AxfiD+w34nPirw8vw4uNEGnjxZrOq6i+paTFJb6el1pJs1VYNw3ncOCvTdk8VNTCS5lyWtdv0urEVssn7SHs7W5pN3W1422NHW/+Ce1he+F7jw/pnxMvIXGm+F7exmMbKVfRhchGcxurESfaTkKQVKDBpvBLlspfy/+S3/zLllK5LKfSH/kl/zuewfAH4SWfwL+EekfC2yvFuE0xZmaaNXCs8s8k77Q7MwG6RsAseK6qNJUaSguh6GFoLDUFTXT9Xc7GtToCgAoA/gDoA/v8oAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKACgAoAKAP4A6AP/2Q==";
+/* Medi Elves logo used in the PDF header (loaded from logo.js) */
+let LOGO_DATA_URL = (typeof MEDI_ELVES_LOGO_BASE64 !== "undefined") ? MEDI_ELVES_LOGO_BASE64 : "";
+function loadLogoAsDataURL() {
+  if (typeof MEDI_ELVES_LOGO_BASE64 !== "undefined" && MEDI_ELVES_LOGO_BASE64) {
+    LOGO_DATA_URL = MEDI_ELVES_LOGO_BASE64;
+  } else if (typeof window !== "undefined" && window.MEDI_ELVES_LOGO_BASE64) {
+    LOGO_DATA_URL = window.MEDI_ELVES_LOGO_BASE64;
+  }
+  return LOGO_DATA_URL;
+}
 
 
 // Single source of truth for icon color across the whole document
@@ -1575,6 +1583,7 @@ function exportPDF() {
 }
 
 function exportPDFCore() {
+  loadLogoAsDataURL();
   const groups = getExportGroups();
   if (!groups.length) { safeAlert("No data to export."); return; }
 
@@ -1751,20 +1760,21 @@ function exportPDFCore() {
 
 function drawHeader(doc, pageW, margin, info) {
   const logoW = 150, logoH = 55.5;
+  const logoData = (typeof MEDI_ELVES_LOGO_BASE64 !== "undefined" && MEDI_ELVES_LOGO_BASE64) ? MEDI_ELVES_LOGO_BASE64 : (LOGO_DATA_URL || (typeof window !== "undefined" ? window.MEDI_ELVES_LOGO_BASE64 : ""));
   // Only draw the logo if a real base64 image is present (a placeholder would crash jsPDF)
-  if (typeof MEDI_ELVES_LOGO_BASE64 === "string" && /^data:image\/(png|jpe?g);base64,/i.test(MEDI_ELVES_LOGO_BASE64)) {
+  if (typeof logoData === "string" && /^data:image\/(png|jpe?g);base64,/i.test(logoData)) {
     try {
-      const fmt = /png/i.test(MEDI_ELVES_LOGO_BASE64.slice(0, 20)) ? "PNG" : "JPEG";
+      const fmt = /png/i.test(logoData.slice(0, 30)) ? "PNG" : "JPEG";
       let drawW = logoW, drawH = logoH;
       try {
-        const p = doc.getImageProperties(MEDI_ELVES_LOGO_BASE64);
+        const p = doc.getImageProperties(logoData);
         if (p && p.width && p.height) {
-          drawH = 62;                       // fixed height, width follows the real ratio
+          drawH = 55.5;                       // fixed height, width follows the real ratio
           drawW = drawH * (p.width / p.height);
-          if (drawW > 190) { drawW = 190; drawH = drawW * (p.height / p.width); }
+          if (drawW > 170) { drawW = 170; drawH = drawW * (p.height / p.width); }
         }
       } catch (e2) { /* keep default size */ }
-      doc.addImage(MEDI_ELVES_LOGO_BASE64, fmt, margin, 24 + (62 - drawH) / 2, drawW, drawH);
+      doc.addImage(logoData, fmt, margin, 24, drawW, drawH);
     } catch (e) {
       console.warn("Logo could not be added to PDF:", e);
       drawLogoTextFallback(doc, margin);

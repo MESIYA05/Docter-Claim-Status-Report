@@ -1,0 +1,1126 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  font-size: 13px;
+}
+.container {
+  /* max-width: 1200px; */
+  margin: auto;
+  /* padding: 20px; */
+}
+
+/* ── HEADER ── */
+.page-header { margin-bottom: 15px; }
+.page-title  { font-size: 18px; font-weight: bold; }
+
+/* ── FILTER CARD ── */
+.filter-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+.filter-group label {
+  font-size: 11px;
+  margin-bottom: 5px;
+  display: block;
+  color: #374151;
+}
+input[type="date"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #111827;
+}
+input[type="date"]:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+}
+.doctor-readonly {
+  padding: 8px 12px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  color: #333;
+  font-weight: 500;
+}
+/* ── ACTION BUTTONS ── */
+.action-row {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+.btn {
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+}
+.btn-primary { background: #4361ee; color: white; }
+.btn-pdf     { background: #dc2626; color: white; }
+.btn-excel   { background: #16a34a; color: white; }
+.btn:hover   { opacity: 0.88; }
+
+/* ── TABLE CARD ── */
+.table-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 20px;
+  margin-right: 20px;
+  border: 1px solid #e3e8e6;
+  box-shadow: 0 2px 10px rgba(16, 66, 51, 0.06);
+}
+.table-scroll {
+  max-height: 760px;
+  overflow-y: auto;
+}
+.table-scroll table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* ── HEADER ROW ── */
+th {
+  background: #12694f;
+  color: #ffffff;
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border-bottom: 1px solid #0e5942;
+}
+th.line-amount,
+th:nth-child(10) { text-align: right; }
+
+/* ── BODY CELLS ── */
+td {
+  padding: 14px 16px;
+  vertical-align: middle;
+  font-size: 13px;
+  color: #1f2d27;
+}
+tr:hover td.claim-cell { background: #dff2ea; }
+
+/* Claim-level (rowspanned) cells get a soft green tint */
+td.claim-cell {
+  background: #eef8f3;
+  vertical-align: top;
+  font-weight: 500;
+  color: #16473a;
+}
+tr.grp-b td.claim-cell { background: #f5fbf8; }
+
+/* Divider between claim info and line-item detail columns */
+td.claim-cell:last-of-type,
+th:nth-child(7) {
+  border-right: 1px solid #cfe8dc;
+}
+tbody td:nth-child(8) {
+  border-left: 1px solid #e3ede8;
+}
+
+/* Row separators within/between claim groups */
+tr:not(.group-first) td { border-top: 1px solid #eef2f0; }
+tr.group-first td      { border-top: 2px solid #d5e4dd; }
+
+/* Amount columns right-aligned */
+.line-amount,
+td:nth-child(7) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.no-lines {
+  color: #9aa39d;
+  font-style: italic;
+  font-size: 12.5px;
+}
+
+/* Claim # link */
+a.claim-link {
+  color: #12694f;
+  font-weight: 600;
+  text-decoration: none;
+}
+a.claim-link:hover { text-decoration: underline; }
+
+/* ── STATUS BADGES (pill style, matches "Settled" look) ── */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: #eef0f4;
+  color: #374151;
+}
+.status-pending          { background: #fdf1cf; color: #92660a; }
+.status-partially-paid   { background: #dbe8ff; color: #2249a8; }
+.status-paid              { background: #d6f2e6; color: #0e6b4c; }
+
+/* Existing claim-level status classes (kept for compatibility) */
+.status-lodged        { background: #e0e7ff; color: #4338ca; }
+.status-fully-paid    { background: #bbf7d0; color: #166534; }
+.status-rejected      { background: #fee2e2; color: #b91c1c; }
+
+/* ── Scrollbar matched to brand teal ── */
+::-webkit-scrollbar-thumb { background: #6fa895; }
+::-webkit-scrollbar-thumb:hover { background: #12694f; }
+/* ===================================================
+   SEARCHABLE DROPDOWN (combobox)
+   =================================================== */
+.searchable-select {
+  position: relative;
+  width: 100%;
+  font-size: 13px;
+}
+.searchable-select .ss-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 10px;
+  background: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+.searchable-select .ss-control:hover  { border-color: #9ca3af; }
+.searchable-select.open .ss-control   {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+}
+.searchable-select .ss-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.searchable-select .ss-arrow {
+  margin-left: 8px;
+  font-size: 11px;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+.searchable-select .ss-dropdown {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  z-index: 50;
+  max-height: 380px;
+  overflow: hidden;
+}
+.searchable-select.open .ss-dropdown { display: flex; }
+.searchable-select .ss-search {
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px 10px;
+  font-size: 13px;
+  outline: none;
+  flex-shrink: 0;
+}
+.searchable-select .ss-options {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+  overflow-y: auto;
+  max-height: 340px;
+}
+.searchable-select .ss-option {
+  padding: 8px 10px;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.searchable-select .ss-option:hover    { background: #eff6ff; }
+.searchable-select .ss-option-all      {
+  font-weight: 500;
+  border-bottom: 1px solid #f3f4f6;
+}
+.searchable-select .ss-no-results {
+  display: none;
+  padding: 8px 10px;
+  color: #9ca3af;
+  font-style: italic;
+}
+
+/* ===================================================
+   DRILL-DOWN MODAL
+   =================================================== */
+#drill-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+#drill-modal.open { display: flex; }
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+.modal-box {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  width: 560px;
+  max-width: 95vw;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e7eb;
+}
+.modal-title  { font-weight: 700; font-size: 15px; }
+.modal-close  {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #6b7280;
+  line-height: 1;
+}
+.modal-close:hover { color: #111827; }
+.modal-body {
+  overflow-y: auto;
+  padding: 14px 18px;
+}
+#drill-table { width: 100%; border-collapse: collapse; }
+#drill-table th {
+  text-align: left;
+  padding: 7px 10px;
+  background: #f9fafb;
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: capitalize;
+  width: 38%;
+  border-top: 1px solid #f3f4f6;
+}
+#drill-table td {
+  padding: 7px 10px;
+  font-size: 13px;
+  border-top: 1px solid #f3f4f6;
+}
+/* ── Branded Report Header ── */
+.report-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e3e6eb;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  margin-bottom: 30px;
+}
+
+.report-header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: auto;
+  padding: 4px 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.report-header-brand {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.report-logo {
+  height: 70px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  display: block;
+}
+
+.report-brand-text {
+  display: none;
+}
+
+.report-brand-name {
+  display: none;
+}
+
+.report-brand-tagline {
+  display: none;
+}
+
+.report-header-divider {
+  display: none;
+}
+
+.report-header-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  align-items: flex-end;
+  justify-content: center;
+  min-width: 0;
+  flex-grow: 1;
+}
+
+.report-header-spacer {
+  flex-grow: 1;
+}
+
+.report-header-title h1 {
+  font-size: 21px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 0.1px;
+  line-height: 1;
+}
+
+.report-header-sub {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .report-header-inner { flex-direction: column; gap: 12px; padding: 16px; }
+  .report-logo { height: 40px; }
+}
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 12px; /* for horizontal scrollbars */
+}
+
+/* Track (background) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background: rgb(94, 113, 113);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ── Grouped claim/line-item table ── */
+table td.claim-cell {
+  vertical-align: top;
+  font-weight: 500;
+}
+
+/* Alternate shading per claim group (light tint on claim-level cells) */
+tr.grp-a td.claim-cell { background: #eef8f3; }
+tr.grp-b td.claim-cell { background: #ffffff; }
+
+/* Thicker top border where a new claim group starts */
+tr.group-first td { border-top: 2px solid #d8dde6; }
+tr:not(.group-first) td { border-top: 1px solid #f0f1f5; }
+
+.line-amount { text-align: right; }
+
+.no-lines {
+  color: #9ca3af;
+  font-style: italic;
+  font-size: 12.5px;
+}
+.status-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: #eef0f4;   /* fallback */
+  color: #374151;        /* fallback */
+}
+
+.status-pending         { background: #fef9c3; color: #a16207; }
+.status-partially-paid  { background: #e0e7ff; color: #4338ca; }
+.status-paid            { background: #dcfce7; color: #15803d; }
+
+/* ── Date pair wrapper: keeps From/To side-by-side, spans full grid row ── */
+.filter-date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  grid-column: 1 / -1; /* span full width of the filter grid */
+}
+
+/* ===================================================
+   RESPONSIVE — MOBILE
+   =================================================== */
+@media (max-width: 768px) {
+  .filter-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .filter-date-row {
+    grid-column: 1 / -1;
+  }
+
+  .filter-card,
+  .table-card {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .action-row {
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* On very small screens, still keep From/To paired instead of stacked */
+  .filter-date-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .filter-group label {
+    font-size: 10.5px;
+  }
+
+  input[type="date"] {
+    padding: 7px 6px;
+    font-size: 12px;
+  }
+
+  .report-header-inner {
+    flex-direction: row;
+    padding: 8px 12px;
+  }
+
+  .report-logo {
+    height: 44px;
+  }
+
+  .report-header-title h1 {
+    font-size: 15px;
+  }
+}
+
+/* ── TABLE: horizontal scroll instead of squashing columns on mobile ── */
+@media (max-width: 900px) {
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-scroll table {
+    min-width: 1000px; /* forces horizontal scroll instead of column-crushing */
+  }
+}
+
+/* ===================================================
+   RESPONSIVE — MOBILE
+   =================================================== */
+@media (max-width: 768px) {
+  .filter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 10px;
+  }
+
+  .filter-group {
+    grid-column: span 1;
+    min-width: 0;
+  }
+
+  .searchable-select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .searchable-select .ss-control {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .searchable-select .ss-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  input[type="date"] {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Keep all three buttons in one row */
+  .action-row {
+    flex-wrap: nowrap;
+    gap: 6px;
+  }
+
+  .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 8px 4px;
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-group label {
+    font-size: 10.5px;
+    margin-bottom: 4px;
+  }
+
+  .searchable-select .ss-control {
+    padding: 7px 8px;
+  }
+
+  .searchable-select .ss-value {
+    font-size: 12px;
+  }
+
+  input[type="date"] {
+    padding: 7px 6px;
+    font-size: 12px;
+  }
+
+  .filter-card,
+  .table-card {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .action-row {
+    gap: 4px;
+  }
+
+  .btn {
+    font-size: 10.5px;
+    padding: 8px 2px;
+  }
+}
+
+@media (max-width: 360px) {
+  .btn {
+    font-size: 9.5px;
+    padding: 7px 2px;
+  }
+}
+
+/* ── TABLE: horizontal scroll instead of squashing columns on mobile ── */
+@media (max-width: 900px) {
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table-scroll table {
+    min-width: 900px;
+  }
+}
+
+.summary-card {
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+.summary-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: #1E2D5A;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.summary-stat {
+  background: #f6f7f9;
+  border-radius: 6px;
+  padding: 10px 12px;
+}
+.summary-stat .label { font-size: 11px; color: #6E7682; }
+.summary-stat .value { font-size: 16px; font-weight: 700; color: #2D374F; }
+.summary-status-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.summary-status-table th, .summary-status-table td {
+  border: 1px solid #e5e7eb;
+  padding: 6px 10px;
+  text-align: left;
+}
+.summary-status-table th { background: #1F7A5C; color: #fff; }
+.summary-status-table td.amount { text-align: right; }
+/* Keep table headers as-is */
+th,
+.summary-status-table th {
+  color: #ffffff !important;
+}
+td.claim-cell.total-amount-cell {
+  background: #ffffff !important;   /* no green background */
+  color: #C62828 !important;        /* red amount */
+  font-weight: 700;
+}
+/* No zebra striping */
+td.claim-cell,
+tr.grp-a td.claim-cell,
+tr.grp-b td.claim-cell {
+  background: #ffffff !important;
+}
+tr:hover td.claim-cell { background: #f3f8f6 !important; }
+
+
+/* ===================================================
+   TABLE LAYOUT & ALIGNMENT FIXES
+   =================================================== */
+.table-scroll table { min-width: 1150px; }
+
+/* Keep short values on one line */
+.table-scroll .col-nowrap  { white-space: nowrap; }
+.table-scroll .col-status  { white-space: nowrap; }
+.table-scroll .col-service { white-space: nowrap; border-left: 1px solid #cfe8dc; }
+
+/* Amounts: right-aligned, equal-width digits, never wrap */
+.table-scroll td.col-amount {
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.table-scroll th:nth-child(7),
+.table-scroll th:nth-child(10) { text-align: right; }
+
+/* Sensible minimum width for the text columns that may wrap */
+.table-scroll th:nth-child(3),
+.table-scroll th:nth-child(4),
+.table-scroll th:nth-child(5),
+.table-scroll th:nth-child(6) { min-width: 110px; }
+
+
+/* ===================================================
+   SPACING & ALIGNMENT CLEANUP
+   =================================================== */
+.report-header { margin-bottom: 16px; }
+.report-header-inner { padding: 6px 20px; }
+
+.filter-card {
+  padding: 16px;
+  margin: 0 20px 16px 20px;
+}
+.filter-group label { margin-bottom: 4px; line-height: 1.2; }
+.doctor-readonly,
+input[type="date"],
+.searchable-select .ss-control { min-height: 36px; }
+.doctor-readonly { display: flex; align-items: center; padding: 6px 12px; }
+.action-row { margin-top: 14px; gap: 8px; }
+
+/* 4 columns on desktop: 4 filters on row 1, 3 on row 2 (no orphan field) */
+@media (min-width: 769px) {
+  .filter-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+}
+
+/* Table: tighter, consistent padding */
+.table-card { margin: 0 20px 16px 20px; }
+.table-scroll th { padding: 11px 14px; }
+.table-scroll td { padding: 10px 14px; line-height: 1.4; }
+
+/* Claim-level (merged) cells align to the TOP so they line up with the first line item */
+.table-scroll td.claim-cell { vertical-align: top; padding-top: 11px; }
+.table-scroll td.col-service,
+.table-scroll td.col-nowrap,
+.table-scroll td.col-status,
+.table-scroll td.line-amount { vertical-align: middle; }
+
+/* Amount columns: same right edge for header and cells */
+.table-scroll th:nth-child(7),
+.table-scroll td.claim-cell.col-amount { text-align: right; padding-right: 18px; }
+.table-scroll th:nth-child(10),
+.table-scroll td.line-amount { text-align: right; padding-right: 20px; }
+.table-scroll th:nth-child(8) { border-left: 1px solid rgba(255,255,255,.18); }
+
+.status-badge { padding: 3px 12px; line-height: 1.4; }
+
+/* Summary card now matches the table card width */
+.summary-card {
+  margin: 0 20px 20px 20px;
+  padding: 14px 16px;
+}
+.summary-title { margin-bottom: 10px; }
+.summary-grid { gap: 10px; margin-bottom: 12px; }
+.summary-stat { padding: 10px 12px; }
+
+@media (max-width: 768px) {
+  .filter-card, .table-card, .summary-card { margin-left: 10px; margin-right: 10px; }
+  .summary-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .summary-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .summary-stat .value { font-size: 14px; }
+}
+
+/* Loader: tighter spacing now that the bar is gone */
+#page-loader .ld-meter { margin-top: 28px; }
+#page-loader .ld-row { margin-bottom: 0; }
+
+
+/* ===================================================
+   ANIMATED PAGE LOADER  (keep this block LAST)
+   =================================================== */
+#page-loader{
+  --ld-bg:#ffffff; --ld-bg2:#e9fbef; --ld-ink:#14532d; --ld-muted:#4d7c5f;
+  --ld-track:rgba(34,139,84,.12); --ld-a:#22c55e; --ld-b:#16a34a; --ld-c:#86efac;
+  --ld-glow:rgba(74,222,128,.45); --ld-ring:rgba(34,197,94,.22);
+  position:fixed; inset:0; z-index:999;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+  font-family:'Manrope',system-ui,Arial,sans-serif; color:var(--ld-ink);
+  background:radial-gradient(70% 60% at 50% 38%,var(--ld-bg2) 0%,var(--ld-bg) 70%);
+  opacity:1; visibility:visible;
+  transition:opacity .5s ease, visibility 0s linear 0s;
+}
+/* smooth fade-out */
+#page-loader.hidden{
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity .5s ease, visibility 0s linear .5s;
+}
+
+/* page content hidden until data is loaded, then fades in */
+.report-header, .filter-card, .table-card, .summary-card{
+  transition:opacity .5s ease;
+}
+body.is-loading .report-header,
+body.is-loading .filter-card,
+body.is-loading .table-card,
+body.is-loading .summary-card{ opacity:0; }
+
+#page-loader .ld-main{position:relative;z-index:1;width:min(420px,88%);display:flex;flex-direction:column;align-items:center;text-align:center}
+
+/* background glow + ECG line */
+#page-loader .ld-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+#page-loader .ld-bg::before,#page-loader .ld-bg::after{content:"";position:absolute;width:46vmax;height:46vmax;border-radius:50%;background:radial-gradient(circle,var(--ld-glow),transparent 65%);filter:blur(30px);opacity:.5;animation:ld-drift 14s ease-in-out infinite alternate}
+#page-loader .ld-bg::before{top:-18vmax;left:-12vmax}
+#page-loader .ld-bg::after{bottom:-20vmax;right:-14vmax;animation-delay:-7s}
+#page-loader .ld-ecg{position:absolute;left:0;right:0;top:50%;height:80px;margin-top:-40px;opacity:.2;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='80' viewBox='0 0 300 80'%3E%3Cpath d='M0 40H100L112 12L128 68L140 28L148 40H300' fill='none' stroke='%2322c55e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") repeat-x;
+  background-size:300px 80px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent);
+  animation:ld-scrollx 6s linear infinite}
+
+/* logo mark */
+#page-loader .ld-mark{position:relative;width:min(200px,50vw);aspect-ratio:1}
+#page-loader .ld-mark svg{position:relative;width:100%;height:100%;overflow:visible;transform-origin:center;
+  filter:drop-shadow(0 6px 22px var(--ld-glow));animation:ld-beat 2.4s ease-in-out infinite}
+#page-loader .ld-ring-base{fill:none;stroke:var(--ld-ring);stroke-width:2}
+#page-loader .ld-ring-arc{fill:none;stroke:url(#ld-g);stroke-width:3;stroke-linecap:round;stroke-dasharray:.22 .78;transform-origin:100px 100px;animation:ld-spin 3.2s linear infinite}
+#page-loader .ld-wave-ghost{fill:none;stroke:var(--ld-ring);stroke-width:7;stroke-linecap:round;stroke-linejoin:round}
+#page-loader .ld-wave{fill:none;stroke:url(#ld-g);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ld-draw 2.4s cubic-bezier(.6,.05,.3,1) infinite}
+#page-loader .ld-orbit{position:absolute;inset:0;z-index:2;pointer-events:none;animation:ld-spin 6s linear infinite}
+#page-loader .ld-orbit i{position:absolute;top:4%;left:50%;width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--ld-a);box-shadow:0 0 12px 4px var(--ld-c)}
+#page-loader .ld-o2{animation-duration:9s;animation-direction:reverse;animation-delay:-3s}
+#page-loader .ld-o3{animation-duration:13s;animation-delay:-6s}
+#page-loader .ld-o3 i{width:5px;height:5px;margin:-2.5px 0 0 -2.5px}
+#page-loader .ld-ripple{position:absolute;inset:6%;border-radius:50%;border:2px solid var(--ld-a);opacity:0;animation:ld-ripple 3.6s ease-out infinite}
+#page-loader .ld-ripple:nth-child(2){animation-delay:1.2s}
+#page-loader .ld-ripple:nth-child(3){animation-delay:2.4s}
+
+/* progress meter */
+#page-loader .ld-meter{width:100%;margin-top:40px}
+#page-loader .ld-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+#page-loader .ld-status{color:var(--ld-muted);font-size:.9rem;min-height:1.3em}
+#page-loader .ld-pct{font:300 2rem/1 'Sora',Arial,sans-serif;font-variant-numeric:tabular-nums}
+#page-loader .ld-pct small{font-size:1rem;color:var(--ld-muted);margin-left:2px}
+#page-loader .ld-track{height:10px;border-radius:99px;background:var(--ld-track);overflow:hidden;position:relative}
+#page-loader .ld-fill{position:absolute;inset:0;border-radius:inherit;transform-origin:left center;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--ld-b),var(--ld-a) 60%,var(--ld-c));box-shadow:0 0 18px var(--ld-glow);
+  transition:transform .25s ease-out}
+#page-loader .ld-fill::before{content:"";position:absolute;inset:0;background:linear-gradient(45deg,rgba(255,255,255,.28) 25%,transparent 25% 50%,rgba(255,255,255,.28) 50% 75%,transparent 75%);background-size:24px 24px;animation:ld-stripes .9s linear infinite}
+#page-loader .ld-fill::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-100%);animation:ld-sheen 1.6s ease-in-out infinite}
+#page-loader.ld-done .ld-status,#page-loader.ld-done .ld-pct{color:var(--ld-b)}
+#page-loader.ld-done .ld-fill::before,#page-loader.ld-done .ld-fill::after{animation:none;opacity:0}
+
+@keyframes ld-draw{0%{stroke-dashoffset:1}55%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:-1}}
+@keyframes ld-spin{to{transform:rotate(360deg)}}
+@keyframes ld-sheen{to{transform:translateX(100%)}}
+@keyframes ld-stripes{to{background-position:24px 0}}
+@keyframes ld-scrollx{to{background-position:-300px 0}}
+@keyframes ld-beat{0%,38%,62%,100%{transform:scale(1)}48%{transform:scale(1.06)}}
+@keyframes ld-ripple{0%{transform:scale(.8);opacity:.55}100%{transform:scale(1.9);opacity:0}}
+@keyframes ld-drift{to{transform:translate(6vmax,5vmax) scale(1.15)}}
+
+@media (prefers-reduced-motion:reduce){
+  #page-loader *,#page-loader *::before,#page-loader *::after{animation:none!important}
+  #page-loader .ld-wave{stroke-dashoffset:0}
+  #page-loader .ld-ring-arc{stroke-dasharray:none}
+}
+
+/* ===== FIXED TITLE CARD + SCROLLING CONTENT =====
+   The header sits outside the scrolling area, so it never moves.
+   Only .page-scroll (filters, table, summary) scrolls, on mobile and laptop. */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.report-header {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 20;
+}
+.page-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+/* Table shows 5 claims at a time (height set by script.js); the rest scrolls inside the table
+   while the header row stays fixed at the top. */
+.table-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.table-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: inset 0 -1px 0 #0e5942;
+}
+
+/* ===== DOWNLOAD FALLBACK (shown only if the device cannot save the file directly) ===== */
+.dl-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(0,0,0,0.45);
+}
+.dl-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+.dl-title { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.dl-name  { font-size: 12px; color: #6b7280; word-break: break-all; margin-bottom: 16px; }
+.dl-link {
+  display: block;
+  padding: 11px 14px;
+  border-radius: 8px;
+  background: #12694f;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+.dl-close {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #374151;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button.dl-share { width: 100%; border: none; cursor: pointer; font-family: inherit; }
+/* ===== MOBILE: hide the vertical scrollbar (scrolling still works) ===== */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar:vertical { width: 0 !important; display: none; }
+  .page-scroll { scrollbar-width: none; }
+  .page-scroll::-webkit-scrollbar { width: 0 !important; display: none; }
+}
+
+/* ===== BACK BUTTON (black pill with circled arrow, top-right next to the title) ===== */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 5px 16px 5px 5px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: opacity .15s ease;
+}
+.back-btn:hover { opacity: 0.85; }
+.back-btn:focus-visible { outline: 2px solid #12694f; outline-offset: 2px; }
+
+.back-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+.back-btn-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ===== LOGO: bigger ===== */
+.report-logo {
+  height: 110px;
+  max-width: 300px;
+}
+@media (max-width: 640px) {
+  .report-logo { height: 70px; max-width: 220px; }
+}
+@media (max-width: 480px) {
+  .report-logo { height: 62px; max-width: 190px; }
+}
+
+/* ===== TITLE: bigger ===== */
+.report-header-title h1 {
+  font-size: 30px;
+  line-height: 1.15;
+}
+@media (max-width: 640px) {
+  .report-header-title h1 { font-size: 24px; }
+}
+@media (max-width: 480px) {
+  .report-header-title h1 { font-size: 19px; }
+}
+
+/* ===== MOBILE HEADER: logo, title and Back button on one neat row ===== */
+@media (max-width: 640px) {
+  .report-header-inner {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  .report-header-brand { flex: 0 0 auto; }
+  .report-logo {
+    width: 104px;
+    height: auto;
+    max-width: none;
+  }
+  .report-header-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    align-items: center;
+  }
+  .report-header-title h1 {
+    font-size: clamp(13px, 4vw, 20px);
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+  .back-btn { font-size: 11px; padding: 3px 10px 3px 3px; gap: 5px; }
+  .back-btn-icon { width: 20px; height: 20px; border-width: 1.5px; }
+  .back-btn-icon svg { width: 12px; height: 12px; }
+}
+@media (max-width: 360px) {
+  .report-header-inner { gap: 6px; padding: 8px 10px; }
+  .report-logo { width: 86px; }
+  .back-btn { font-size: 10px; padding: 3px 8px 3px 3px; gap: 4px; }
+  .back-btn-icon { width: 18px; height: 18px; }
+  .back-btn-icon svg { width: 11px; height: 11px; }
+}

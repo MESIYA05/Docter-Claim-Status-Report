@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billing Status Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;600&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <!-- Zoho Creator SDK -->
+  <script src="https://js.zohostatic.com/creator/sdk/v1.0/ZohoEmbededAppSDK.min.js"></script>
+  <script src="https://js.zohostatic.com/creator/widgets/version/2.0/widgetsdk.js"></script>
+  <script src="https://js.zohostatic.com/creator/widgets/version/2.0/widgetsdk-min.js"></script>
+  <!-- PDF Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <!-- Excel Export (styled) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+</head>
+<body class="is-loading">
+
+<!-- ANIMATED PAGE LOADER -->
+<div id="page-loader" role="status" aria-live="polite">
+  <div class="ld-bg" aria-hidden="true"></div>
+  <div class="ld-ecg" aria-hidden="true"></div>
+  <div class="ld-main">
+    <div class="ld-mark">
+      <span class="ld-ripple"></span><span class="ld-ripple"></span><span class="ld-ripple"></span>
+      <span class="ld-orbit"><i></i></span>
+      <span class="ld-orbit ld-o2"><i></i></span>
+      <span class="ld-orbit ld-o3"><i></i></span>
+      <svg viewBox="0 0 200 200">
+        <defs>
+          <linearGradient id="ld-g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#16a34a"/>
+            <stop offset=".55" stop-color="#4ade80"/>
+            <stop offset="1" stop-color="#bbf7d0"/>
+          </linearGradient>
+        </defs>
+        <circle class="ld-ring-base" cx="100" cy="100" r="92"/>
+        <circle class="ld-ring-arc" cx="100" cy="100" r="92" pathLength="1"/>
+        <path class="ld-wave-ghost" d="M32 104 H70 L86 50 L108 150 L122 84 L132 104 H168"/>
+        <path class="ld-wave" pathLength="1" d="M32 104 H70 L86 50 L108 150 L122 84 L132 104 H168"/>
+      </svg>
+    </div>
+    <div class="ld-meter">
+      <div class="ld-row">
+        <span class="ld-status" id="ld-status">Starting up</span>
+        <span class="ld-pct"><span id="ld-pct">1</span><small>%</small></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- FIXED TITLE CARD (stays in place; only the area below scrolls) -->
+  <header class="report-header">
+    <div class="report-header-inner">
+      <div class="report-header-brand">
+        <img
+          src="https://creatorapp.zohopublic.com.au/file//medielves/claims-management//All_Images/31559000000025010/Logo/image-download/PFxHZm68ZwuMKfkZz7yNOH7BZEes8UQN5ETOHD0bVY8Njqf0b9Zw5ZTe2XUK0CONRVfdmbQ9wteQdDnbWNCN4kVaeRZQhFrE6Tp5?filepath=/1774517256590556_Logo_design_with_green_leaf_accent.png"
+          alt="Logo"
+          class="report-logo">
+      </div>
+      <div class="report-header-title">
+        <span class="report-header-spacer"></span>
+        <h1>Claims Status Report</h1>
+      </div>
+
+      <!-- BACK BUTTON (goes to portal_home_page) -->
+      <button type="button" class="back-btn" onclick="goBackHome()" aria-label="Back to Home">
+        <span class="back-btn-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M14.5 6.5 9 12l5.5 5.5"/></svg>
+        </span>
+        <span class="back-btn-text">BACK</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SCROLLABLE CONTENT AREA -->
+  <div class="page-scroll" id="page-scroll">
+
+    <!-- FILTERS -->
+    <div class="filter-card">
+      <div class="filter-grid">
+
+        <div class="filter-group">
+          <label>Doctor</label>
+          <div id="f-doctor-display" class="doctor-readonly">—</div>
+        </div>
+
+        <div class="filter-group">
+          <label>Location</label>
+          <div id="f-location"></div>
+        </div>
+
+        <div class="filter-group">
+          <label>Payer</label>
+          <div id="f-payer"></div>
+        </div>
+
+        <div class="filter-group">
+          <label>Patient (Name - DOB)</label>
+          <div id="f-patient"></div>
+        </div>
+
+        <div class="filter-group">
+          <label>Status</label>
+          <div id="f-status"></div>
+        </div>
+
+        <div class="filter-group">
+          <label>From Date</label>
+          <input type="date" id="f-from" />
+        </div>
+
+        <div class="filter-group">
+          <label>To Date</label>
+          <input type="date" id="f-to" />
+        </div>
+
+      </div>
+
+      <div class="action-row">
+        <button class="btn btn-primary" type="button" onclick="runReport()">Update</button>
+        <button class="btn btn-pdf"     type="button" onclick="exportPDF()">Export PDF</button>
+        <button class="btn btn-excel"   type="button" onclick="exportExcel()">Export Excel</button>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-card">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Claim #</th>
+              <th>Claim Date</th>
+              <th>Doctor</th>
+              <th>Hospital</th>
+              <th>Patient</th>
+              <th>Payer</th>
+              <th>Total Claim Amount</th>
+              <th>Date of Service</th>
+              <th>Item Number</th>
+              <th>Item Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="report-body">
+            <tr><td colspan="11">No data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GRAND SUMMARY -->
+    <div class="summary-card" id="report-summary">
+      <!-- populated by renderSummary() -->
+    </div>
+
+  </div>
+</div>
+<script src="./script.js"></script>
+<script>
+  /* ===================================================
+     BACK BUTTON → Home page (portal_home_page)
+     =================================================== */
+  function goBackHome() {
+    try {
+      ZOHO.CREATOR.UTIL.navigateParentURL({
+        action: "open",
+        url: "#Page:portal_home_page",
+        window: "same"
+      });
+    } catch (e) {
+      console.error("Back navigation failed:", e);
+      alert("Could not open the Home page: " + (e && e.message ? e.message : e));
+    }
+  }
+</script>
+</body>
+</html>
